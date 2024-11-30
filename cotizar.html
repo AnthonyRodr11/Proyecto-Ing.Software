@@ -19,14 +19,38 @@
     
     <div class="contenedor">
 
-
         <h3>Formulario de cotización:</h3>
+
         <form>
             
-            <label for="nombre">Nombre del Cliente</label>
+            <label for="nombre">Nombre del Cliente:</label>
             <input type="text" id="nombreCliente">
+            <label for="equipo">Equipo a utilizar:</label>
+            <textarea id="descripcion" placeholder="Escriba la descripción del servicio" rows="20" cols="50" required style="resize: none;"></textarea>
+            <label for="colaboradores">Colaboradores recomendados:</label>
+            <ul>
+                <li>
+
+                </li>
+            </ul>
+            <label>
+                Monta Carga
+                <input type="checkbox" id=" montaCarga">
+            </label>
+            <label>
+                Sogas y cintas adhesivas
+                <input type="checkbox" id="material">
+            </label>
+            <label>
+                poleas
+                <input type="checkbox" id="polea">
+            </label>
+            <label>
+                Material de embale
+                <input type="checkbox" id=" Monta Carga">
+            </label>
             <br><br>
-            <label for="contacto">Número celular del Cliente</label>
+            <label for="contacto">Número celular del Cliente:</label>
             <input type="text" id="numeroCliente">
 
             <br><br>
@@ -38,12 +62,35 @@
                 <option id="wincheo"> Wincheo</option>
                 <option id="mudanzaInternas">Mundanzas Internas</option>
             </select>
+            <br>
+            <br><br>
+            <label for="partidad">Punto de Partida:</label>
+            <input type="text" id="ubiPartidad">
+            <label for="llegada">Punto de llegada:</label>
+            <input type="text" id="ubiLlegada">
 
+            <br><br>
+            <label for="tipoVehiculo">Seleccione el vehiculo a utilizar:</label>
+            <br>
 
+            <select id="tiposVehiculos">
+
+                <option id="pequeñp"> Camión Mediano</option>
+                <option id="mediano"> Camión Grande</option>
+                <option id="grande">Camión de Plancha</option>
+
+            </select>   
+
+            <br>
+            <br>
+            <input type="button" value="Guardar Cotizacion" onclick="guardarSolicitud()">
 
         </form>
-
-
     </div>
+    <script>
+        function guardarSolicitud() {
+            
+        }
+    </script>
 </body>
 </html>
