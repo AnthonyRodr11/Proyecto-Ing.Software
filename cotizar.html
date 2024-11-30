@@ -1,95 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizar</title>
+    <title>Cotización</title>
+    <link rel="stylesheet" href="cotizar.css">
 </head>
 <body>
-    <h1>Cotización</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="cotizar.html">Cotizar</a></li>
-            <li><a href="agendar.html">Agendar Servicio</a></li>
-            <li><a href="inventario.html">Ver Inventario</a></li>
-            <li><a href="colaboradores.html">Ver Colaboradores</a></li>
-        </ul>
-    </nav>
-    
-    <div class="contenedor">
+    <div class="container">
+        <header>
+            <nav class="menu">
+                <ul>
+                    <li><img src="img/logo.png" alt="Logo" class="logo"></li>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="cotizar.html" class="active">Cotizar</a></li>
+                    <li><a href="agenda.html">Agendar Servicio</a></li>
+                    <li><a href="inventario.html">Ver Inventario</a></li>
+                    <li><a href="colaboradores.html">Ver Colaboradores</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <h3>Formulario de cotización:</h3>
+        <main>
+            <h1>Cotización</h1>
+            <div class="contenedor">
+                <h3>Formulario de cotización:</h3>
 
-        <form>
-            
-            <label for="nombre">Nombre del Cliente:</label>
-            <input type="text" id="nombreCliente">
-            <label for="equipo">Equipo a utilizar:</label>
-            <textarea id="descripcion" placeholder="Escriba la descripción del servicio" rows="20" cols="50" required style="resize: none;"></textarea>
-            <label for="colaboradores">Colaboradores recomendados:</label>
-            <ul>
-                <li>
+                <form id="cotizarForm">
+                    <button type="button" class="accordion">Datos del Cliente</button>
+                    <div class="panel">
+                        <label for="nombreCliente">Nombre del Cliente:</label>
+                        <input type="text" id="nombreCliente">
 
-                </li>
-            </ul>
-            <label>
-                Monta Carga
-                <input type="checkbox" id=" montaCarga">
-            </label>
-            <label>
-                Sogas y cintas adhesivas
-                <input type="checkbox" id="material">
-            </label>
-            <label>
-                poleas
-                <input type="checkbox" id="polea">
-            </label>
-            <label>
-                Material de embale
-                <input type="checkbox" id=" Monta Carga">
-            </label>
-            <br><br>
-            <label for="contacto">Número celular del Cliente:</label>
-            <input type="text" id="numeroCliente">
+                        <label for="numeroCliente">Número celular del Cliente:</label>
+                        <input type="text" id="numeroCliente">
+                    </div>
 
-            <br><br>
-            <label for="tipoTrabajo">Seleccione el tipo de Trabajo a relizar:</label>
-            <br>
+                    <button type="button" class="accordion">Equipo y Servicios</button>
+                    <div class="panel">
+                        <label for="descripcion">Equipo a utilizar:</label>
+                        <textarea id="descripcion" placeholder="Escriba la descripción del servicio" rows="5" cols="50" required style="resize: none;"></textarea>
 
-            <select id="tiposTrabajos">
-                <option id="acarreo"> Acarreo</option>
-                <option id="wincheo"> Wincheo</option>
-                <option id="mudanzaInternas">Mundanzas Internas</option>
-            </select>
-            <br>
-            <br><br>
-            <label for="partidad">Punto de Partida:</label>
-            <input type="text" id="ubiPartidad">
-            <label for="llegada">Punto de llegada:</label>
-            <input type="text" id="ubiLlegada">
+                        <label for="colaboradores">Colaboradores recomendados:</label>
+                        <ul>
+                            <li></li>
+                        </ul>
 
-            <br><br>
-            <label for="tipoVehiculo">Seleccione el vehiculo a utilizar:</label>
-            <br>
+                        <label>
+                            Monta Carga
+                            <input type="checkbox" id="montaCarga">
+                        </label>
+                        <label>
+                            Sogas y cintas adhesivas
+                            <input type="checkbox" id="material">
+                        </label>
+                        <label>
+                            Poleas
+                            <input type="checkbox" id="polea">
+                        </label>
+                        <label>
+                            Material de embalaje
+                            <input type="checkbox" id="materialEmbalaje">
+                        </label>
+                    </div>
 
-            <select id="tiposVehiculos">
+                    <button type="button" class="accordion">Detalles del Trabajo</button>
+                    <div class="panel">
+                        <label for="tiposTrabajos">Seleccione el tipo de trabajo a realizar:</label>
+                        <select id="tiposTrabajos">
+                            <option id="acarreo">Acarreo</option>
+                            <option id="wincheo">Wincheo</option>
+                            <option id="mudanzaInternas">Mudanzas Internas</option>
+                        </select>
 
-                <option id="pequeñp"> Camión Mediano</option>
-                <option id="mediano"> Camión Grande</option>
-                <option id="grande">Camión de Plancha</option>
+                        <label for="ubiPartida">Punto de partida:</label>
+                        <input type="text" id="ubiPartida">
 
-            </select>   
+                        <label for="ubiLlegada">Punto de llegada:</label>
+                        <input type="text" id="ubiLlegada">
 
-            <br>
-            <br>
-            <input type="button" value="Guardar Cotizacion" onclick="guardarSolicitud()">
+                        <label for="tiposVehiculos">Seleccione el vehículo a utilizar:</label>
+                        <select id="tiposVehiculos">
+                            <option id="pequeño">Camión Mediano</option>
+                            <option id="mediano">Camión Grande</option>
+                            <option id="grande">Camión de Plancha</option>
+                        </select>
+                    </div>
 
-        </form>
+                    <input type="button" value="Guardar Cotización" onclick="guardarSolicitud()">
+                </form>
+            </div>
+        </main>
     </div>
+
     <script>
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+
         function guardarSolicitud() {
-            
+            alert("Cotización guardada.");
         }
     </script>
 </body>
