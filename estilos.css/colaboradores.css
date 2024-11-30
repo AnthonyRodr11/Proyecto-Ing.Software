@@ -1,43 +1,87 @@
+/* General reset */
 body {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f9f9f9;
 }
 
+/* Container with box-shadow */
 .container {
-    text-align: center;
     width: 90%;
-    max-width: 800px;
-    height: 500px;
+    max-width: 900px;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
+/* Header section with the logo and navbar */
 header {
-    display: flex;
-    align-items: center;
-    gap: 120px;
+    margin-bottom: 20px;
 }
 
+/* Navbar menu styling */
+.menu {
+    background-color: #9d98e6;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+}
+
+.menu ul li {
+    display: inline;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.menu ul li a:hover {
+    background-color: #FFD700;
+    color: black;
+}
+
+/* Logo size adjustment */
 .logo {
     width: 100px;
-    height: 150px;
+    height: 100px;
     object-fit: contain;
     margin-left: 20px;
 }
 
+/* Active state for menu items */
+.active {
+    background-color: #5df15f;
+}
+
+/* Main page title */
 h1 {
     font-size: 50px;
     color: #333;
 }
 
+/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -55,10 +99,7 @@ table th {
     color: #ffffff;
 }
 
-table th:nth-child(5) {
-    background-color: #97d17f;
-}
-
+/* Button styling for "Agregar Colaborador" */
 .add-button {
     background-color: #5df15f;
     border: none;
@@ -68,7 +109,7 @@ table th:nth-child(5) {
     color: #333;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 150px;
+    margin-top: 100px;
 }
 
 .add-button:hover {
