@@ -139,3 +139,50 @@ input[type="button"] {
 input[type="button"]:hover {
     background-color: #FFC300;
 }
+/* Estilo para el fondo del modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo translúcido */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+/* Botón de cerrar */
+.close-btn {
+    color: white;
+    background-color: #9d98e6;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    float: right;
+    transition: 0.3s;
+    border: none;
+}
+
+/* Hover en el botón de cerrar */
+.close-btn:hover {
+    background-color: #FFD700;
+    color: black;
+}

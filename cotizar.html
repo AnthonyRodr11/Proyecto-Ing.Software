@@ -24,53 +24,38 @@
         <main>
             <h1>Cotización</h1>
             <div class="contenedor">
-                <h3>Formulario de cotización:</h3>
-
                 <form id="cotizarForm">
                     <button type="button" class="accordion">Datos del Cliente</button>
                     <div class="panel">
                         <label for="nombreCliente">Nombre del Cliente:</label>
-                        <input type="text" id="nombreCliente">
+                        <input type="text" id="nombreCliente" placeholder="Escriba el nombre">
 
                         <label for="numeroCliente">Número celular del Cliente:</label>
-                        <input type="text" id="numeroCliente">
+                        <input type="text" id="numeroCliente" placeholder="Escriba el número">
                     </div>
 
-                    <button type="button" class="accordion">Equipo y Servicios</button>
+                    <button type="button" class="accordion">Servicios</button>
                     <div class="panel">
-                        <label for="descripcion">Equipo a utilizar:</label>
-                        <textarea id="descripcion" placeholder="Escriba la descripción del servicio" rows="5" cols="50" required style="resize: none;"></textarea>
-
-                        <label for="colaboradores">Colaboradores recomendados:</label>
-                        <ul>
-                            <li></li>
-                        </ul>
-
-                        <label>
-                            Monta Carga
-                            <input type="checkbox" id="montaCarga">
-                        </label>
-                        <label>
-                            Sogas y cintas adhesivas
-                            <input type="checkbox" id="material">
-                        </label>
-                        <label>
-                            Poleas
-                            <input type="checkbox" id="polea">
-                        </label>
-                        <label>
-                            Material de embalaje
-                            <input type="checkbox" id="materialEmbalaje">
-                        </label>
+                        <label for="montaCarga">Monta Carga</label>
+                        <input type="checkbox" id="montaCarga">
+                        
+                        <label for="material">Sogas y cintas adhesivas</label>
+                        <input type="checkbox" id="material">
+                        
+                        <label for="polea">Poleas</label>
+                        <input type="checkbox" id="polea">
+                        
+                        <label for="materialEmbalaje">Material de embalaje</label>
+                        <input type="checkbox" id="materialEmbalaje">
                     </div>
 
                     <button type="button" class="accordion">Detalles del Trabajo</button>
                     <div class="panel">
-                        <label for="tiposTrabajos">Seleccione el tipo de trabajo a realizar:</label>
+                        <label for="tiposTrabajos">Tipo de Trabajo:</label>
                         <select id="tiposTrabajos">
-                            <option id="acarreo">Acarreo</option>
-                            <option id="wincheo">Wincheo</option>
-                            <option id="mudanzaInternas">Mudanzas Internas</option>
+                            <option value="Acarreo">Acarreo</option>
+                            <option value="Wincheo">Wincheo</option>
+                            <option value="Mudanza Internas">Mudanza Internas</option>
                         </select>
 
                         <label for="ubiPartida">Punto de partida:</label>
@@ -78,13 +63,6 @@
 
                         <label for="ubiLlegada">Punto de llegada:</label>
                         <input type="text" id="ubiLlegada">
-
-                        <label for="tiposVehiculos">Seleccione el vehículo a utilizar:</label>
-                        <select id="tiposVehiculos">
-                            <option id="pequeño">Camión Mediano</option>
-                            <option id="mediano">Camión Grande</option>
-                            <option id="grande">Camión de Plancha</option>
-                        </select>
                     </div>
 
                     <input type="button" value="Guardar Cotización" onclick="guardarSolicitud()">
@@ -94,11 +72,12 @@
     </div>
 
     <script>
-        var acc = document.getElementsByClassName("accordion");
-        for (var i = 0; i < acc.length; i++) {
+        // Efecto acordeón
+        const acc = document.getElementsByClassName("accordion");
+        for (let i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
                 this.classList.toggle("active");
-                var panel = this.nextElementSibling;
+                const panel = this.nextElementSibling;
                 if (panel.style.display === "block") {
                     panel.style.display = "none";
                 } else {
@@ -107,8 +86,56 @@
             });
         }
 
+        // Función para guardar y mostrar modal
         function guardarSolicitud() {
-            alert("Cotización guardada.");
+            const cliente = document.getElementById("nombreCliente").value;
+            const numero = document.getElementById("numeroCliente").value;
+
+            const checkboxes = ["montaCarga", "material", "polea", "materialEmbalaje"];
+            const serviciosSeleccionados = checkboxes
+                .filter(id => document.getElementById(id).checked)
+                .map(id => {
+                    const label = document.querySelector(`label[for="${id}"]`);
+                    return label ? label.textContent.trim() : "Desconocido";
+                });
+
+            const tipoTrabajo = document.getElementById("tiposTrabajos").value;
+            const ubiPartida = document.getElementById("ubiPartida").value;
+            const ubiLlegada = document.getElementById("ubiLlegada").value;
+
+            mostrarModal({
+                cliente,
+                numero,
+                serviciosSeleccionados,
+                tipoTrabajo,
+                ubiPartida,
+                ubiLlegada
+            });
+        }
+
+        // Mostrar modal
+        function mostrarModal(datos) {
+            const modalContent = `
+                <div id="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
+                    <div style="background: white; padding: 20px; border-radius: 8px; max-width: 600px; width: 90%;">
+                        <h2>Información de la Cotización</h2>
+                        <p><strong>Cliente:</strong> ${datos.cliente}</p>
+                        <p><strong>Número de Contacto:</strong> ${datos.numero}</p>
+                        <p><strong>Servicios Seleccionados:</strong> ${datos.serviciosSeleccionados.join(", ") || "Ninguno"}</p>
+                        <p><strong>Tipo de Trabajo:</strong> ${datos.tipoTrabajo}</p>
+                        <p><strong>Punto de Partida:</strong> ${datos.ubiPartida}</p>
+                        <p><strong>Punto de Llegada:</strong> ${datos.ubiLlegada}</p>
+                        <button onclick="cerrarModal()">Cerrar</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML("beforeend", modalContent);
+        }
+
+        // Cerrar modal
+        function cerrarModal() {
+            const modal = document.getElementById("modal");
+            if (modal) modal.remove();
         }
     </script>
 </body>
