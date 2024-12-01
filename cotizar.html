@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización</title>
-    <link rel="stylesheet" href="estilos.css/cotizar.css">
+    <link rel="stylesheet" href="estilos/cotizar.css">
 </head>
 <body>
     <div class="container">
@@ -14,7 +14,7 @@
                     <li><img src="img/logo.png" alt="Logo" class="logo"></li>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="cotizar.html" class="active">Cotizar</a></li>
-                    <li><a href="agenda.html">Agenda</a></li>
+                    <li><a href="agenda.html">Agendar</a></li>
                     <li><a href="inventario.html">Inventario</a></li>
                     <li><a href="colaboradores.html">Colaboradores</a></li>
                 </ul>
@@ -22,6 +22,7 @@
         </header>
 
         <main>
+            <h1>Cotización</h1>
             <div class="contenedor">
                 <form id="cotizarForm">
                     <button type="button" class="accordion">Datos del Cliente</button>
@@ -31,21 +32,6 @@
 
                         <label for="numeroCliente">Número celular del Cliente:</label>
                         <input type="text" id="numeroCliente" placeholder="Escriba el número">
-                    </div>
-
-                    <button type="button" class="accordion">Servicios</button>
-                    <div class="panel">
-                        <label for="montaCarga">Monta Carga</label>
-                        <input type="checkbox" id="montaCarga">
-                        
-                        <label for="material">Sogas y cintas adhesivas</label>
-                        <input type="checkbox" id="material">
-                        
-                        <label for="polea">Poleas</label>
-                        <input type="checkbox" id="polea">
-                        
-                        <label for="materialEmbalaje">Material de embalaje</label>
-                        <input type="checkbox" id="materialEmbalaje">
                     </div>
 
                     <button type="button" class="accordion">Detalles del Trabajo</button>
@@ -62,6 +48,25 @@
 
                         <label for="ubiLlegada">Punto de llegada:</label>
                         <input type="text" id="ubiLlegada">
+
+                        <label for="descripcion">Descripción del Trabajo:</label>
+                        <textarea id="descripcion" placeholder="Escriba la descripción del servicio" rows="5" cols="50" required style="resize: none;"></textarea>. 
+
+                    </div>
+
+                    <button type="button" class="accordion">Servicios</button>
+                    <div class="panel">
+                        <label for="montaCarga">Monta Carga</label>
+                        <input type="checkbox" id="montaCarga">
+                        
+                        <label for="material">Sogas y cintas adhesivas</label>
+                        <input type="checkbox" id="material">
+                        
+                        <label for="polea">Poleas</label>
+                        <input type="checkbox" id="polea">
+                        
+                        <label for="materialEmbalaje">Material de embalaje</label>
+                        <input type="checkbox" id="materialEmbalaje">
                     </div>
 
                     <input type="button" value="Guardar Cotización" onclick="guardarSolicitud()">
@@ -101,6 +106,7 @@
             const tipoTrabajo = document.getElementById("tiposTrabajos").value;
             const ubiPartida = document.getElementById("ubiPartida").value;
             const ubiLlegada = document.getElementById("ubiLlegada").value;
+            const descripcion = document.getElementById("descripcion").value;
 
             mostrarModal({
                 cliente,
@@ -108,7 +114,8 @@
                 serviciosSeleccionados,
                 tipoTrabajo,
                 ubiPartida,
-                ubiLlegada
+                ubiLlegada,
+                descripcion
             });
         }
 
@@ -124,6 +131,7 @@
                         <p><strong>Tipo de Trabajo:</strong> ${datos.tipoTrabajo}</p>
                         <p><strong>Punto de Partida:</strong> ${datos.ubiPartida}</p>
                         <p><strong>Punto de Llegada:</strong> ${datos.ubiLlegada}</p>
+                         <p><strong>Descripción del Servicio:</strong> ${datos.descripcion}</p>
                         <button onclick="cerrarModal()">Cerrar</button>
                     </div>
                 </div>
