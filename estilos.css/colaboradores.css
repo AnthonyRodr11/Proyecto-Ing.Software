@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-image: url('../img/Leonardo_Phoenix_Create_an_image_depicting_a_transportation_co_1.jpg');
 }
 .container {
     width: 90%;
