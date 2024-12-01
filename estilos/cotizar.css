@@ -1,4 +1,4 @@
-body {
+body { 
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -7,8 +7,12 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-image: url('../img/Leonardo_Phoenix_Create_an_image_depicting_a_transportation_co_1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-
 
 .container {
     width: 90%;
@@ -19,12 +23,12 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 header {
     margin-bottom: 20px;
 }
-
 
 .menu {
     background-color: #9d98e6;
@@ -67,10 +71,12 @@ header {
     object-fit: contain;
     margin-left: 20px;
 }
-.active{
+
+.active {
     background-color: #5df15f;
 }
 
+/* Acordeón */
 .accordion {
     background-color: #9d98e6;
     color: white;
@@ -86,23 +92,25 @@ header {
     transition: 0.3s;
 }
 
-.accordion.active, .accordion:hover {
+.accordion.active,
+.accordion:hover {
     background-color: #5df15f;
 }
 
 .panel {
-    padding: 0 18px;
+    padding: 10px;
     display: none;
     background-color: #f1f1f1;
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: 200px;
+    border-radius: 5px;
     margin-bottom: 15px;
 }
 
 form {
     text-align: left;
-    margin-top: 20px;
-    display: inline-block;
-    width: 90%;
+    display: block;
+    width: 100%;
 }
 
 form label {
@@ -111,13 +119,16 @@ form label {
     font-size: 1rem;
 }
 
-form input[type="text"], form textarea, form select {
-    width: 650px;
+form input[type="text"],
+form textarea,
+form select {
+    width: calc(100% - 20px);
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 form textarea {

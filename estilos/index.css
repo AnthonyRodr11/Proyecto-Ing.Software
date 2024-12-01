@@ -12,7 +12,10 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
 .container {
+    text-align: center;
+    justify-content: center;
     width: 90%;
     max-width: 900px;
     background: white;
@@ -21,11 +24,13 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
 header {
     margin-bottom: 20px;
 }
+
 .menu {
-    background-color: #9d98e6;
+    background-color: #6d65dd;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -60,51 +65,52 @@ header {
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 150px;
     object-fit: contain;
     margin-left: 20px;
-}
-
-.active {
-    background-color: #5df15f;
 }
 
 h1 {
     font-size: 50px;
     color: #333;
+    margin-top: -40px;
 }
 
-
-table {
-    width: 100%;
-    border-collapse: collapse;
+.contenido h2 {
+    font-size: 30px;
+    color: #555;
     margin-bottom: 20px;
+    margin-top: -10px;
 }
 
-table th, table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
+.contenido p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: justify;
 }
 
-table th {
-    background-color: #585197;
-    color: #ffffff;
+.menu-botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
-.add-button {
+.menu-botones a button {
     background-color: #5df15f;
     border: none;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: bold;
-    color: #333;
+    color: white;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 100px;
+    transition: background-color 0.3s ease;
 }
 
-.add-button:hover {
+.menu-botones a button:hover {
     background-color: #FFC300;
 }
