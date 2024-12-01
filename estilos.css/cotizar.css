@@ -8,10 +8,10 @@ body {
     align-items: center;
     min-height: 100vh;
     background-image: url('../img/Leonardo_Phoenix_Create_an_image_depicting_a_transportation_co_1.jpg');
-    background-size: cover; /* Asegura que la imagen ocupe todo el fondo */
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Fija la imagen de fondo */
+    background-attachment: fixed;
 }
 
 .container {
@@ -23,7 +23,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     overflow: hidden;
-    box-sizing: border-box; /* Mantiene el tamaño del contenedor */
+    box-sizing: border-box;
 }
 
 header {
@@ -98,16 +98,15 @@ header {
 }
 
 .panel {
-    padding: 10px; /* Espaciado interno */
-    display: none; /* Oculto por defecto */
+    padding: 10px;
+    display: none;
     background-color: #f1f1f1;
-    overflow-y: auto; /* Scroll vertical */
-    max-height: 200px; /* Altura máxima para limitar el tamaño */
+    overflow-y: auto;
+    max-height: 200px;
     border-radius: 5px;
     margin-bottom: 15px;
 }
 
-/* Formulario dentro del acordeón */
 form {
     text-align: left;
     display: block;
@@ -123,7 +122,7 @@ form label {
 form input[type="text"],
 form textarea,
 form select {
-    width: calc(100% - 20px); /* Asegura que se ajuste al contenedor */
+    width: calc(100% - 20px);
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
