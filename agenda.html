@@ -29,7 +29,7 @@
                         <th>Descripción</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="agenda-body">
                     <tr>
                         <td>30/11/2024</td>
                         <td>San Miguelito</td>
@@ -48,7 +48,101 @@
                 </tbody>
             </table>
             <button class="add-button">Agregar Agenda</button>
+            <button class="delete-button">Borrar Agenda</button>
         </main>
     </div>
+
+    <div class="modal-overlay"></div>
+    <div class="modal" id="modal-add">
+        <div class="modal-header">Agregar a la Agenda</div>
+        <input type="date" id="modal-fecha" placeholder="Fecha">
+        <input type="text" id="modal-ubicacion" placeholder="Ubicación">
+        <input type="text" id="modal-descripcion" placeholder="Descripción">
+        <button class="confirm-button">Confirmar</button>
+        <button class="cancel-button">Cancelar</button>
+    </div>
+
+    <div class="modal" id="modal-delete">
+        <div class="modal-header">Borrar de la Agenda</div>
+        <select id="delete-options">
+        </select>
+        <button class="confirm-delete-button">Confirmar</button>
+        <button class="cancel-button">Cancelar</button>
+    </div>
+
+    <script>
+        const modalAdd = document.getElementById("modal-add");
+        const modalDelete = document.getElementById("modal-delete");
+        const overlay = document.querySelector(".modal-overlay");
+        const addButton = document.querySelector(".add-button");
+        const deleteButton = document.querySelector(".delete-button");
+        const confirmAddButton = modalAdd.querySelector(".confirm-button");
+        const confirmDeleteButton = modalDelete.querySelector(".confirm-delete-button");
+        const cancelButtons = document.querySelectorAll(".cancel-button");
+
+        const tbody = document.getElementById("agenda-body");
+        const deleteOptions = document.getElementById("delete-options");
+
+        addButton.addEventListener("click", () => {
+            modalAdd.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        deleteButton.addEventListener("click", () => {
+            deleteOptions.innerHTML = "";
+            const rows = tbody.querySelectorAll("tr");
+            rows.forEach((row, index) => {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = row.cells[2].textContent;
+                deleteOptions.appendChild(option);
+            });
+            modalDelete.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        cancelButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                modalAdd.style.display = "none";
+                modalDelete.style.display = "none";
+                overlay.style.display = "none";
+            });
+        });
+
+        confirmAddButton.addEventListener("click", () => {
+            const fecha = document.getElementById("modal-fecha").value;
+            const ubicacion = document.getElementById("modal-ubicacion").value;
+            const descripcion = document.getElementById("modal-descripcion").value;
+
+            if (fecha && ubicacion && descripcion) {
+                const formattedFecha = fecha.split("-").join("/");
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${formattedFecha}</td>
+                    <td>${ubicacion}</td>
+                    <td>${descripcion}</td>
+                `;
+                tbody.appendChild(newRow);
+
+                modalAdd.style.display = "none";
+                overlay.style.display = "none";
+                document.getElementById("modal-fecha").value = "";
+                document.getElementById("modal-ubicacion").value = "";
+                document.getElementById("modal-descripcion").value = "";
+            } else {
+                alert("Por favor, completa todos los campos.");
+            }
+        });
+
+        confirmDeleteButton.addEventListener("click", () => {
+            const selectedIndex = deleteOptions.value;
+            const rows = tbody.querySelectorAll("tr");
+            if (selectedIndex >= 0 && rows[selectedIndex]) {
+                rows[selectedIndex].remove();
+                modalDelete.style.display = "none";
+                overlay.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>

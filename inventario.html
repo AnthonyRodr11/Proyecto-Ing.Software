@@ -28,36 +28,115 @@
                         <th>Cantidad</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Ejemplo de productos en inventario -->
+                <tbody id="inventario-body">
                     <tr>
                         <td>Camión de Carga</td>
-                        <td>3</td>
+                        <td contenteditable="true">3</td>
                     </tr>
                     <tr>
                         <td>Grúa Hidráulica</td>
-                        <td>2</td>
+                        <td contenteditable="true">2</td>
                     </tr>
                     <tr>
                         <td>Carretillas</td>
-                        <td>10</td>
+                        <td contenteditable="true">10</td>
                     </tr>
                     <tr>
                         <td>Transpaletas</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>Equipos de Protección</td>
-                        <td>50</td>
-                    </tr>
-                    <tr>
-                        <td>Contenedores de Carga</td>
-                        <td>15</td>
+                        <td contenteditable="true">5</td>
                     </tr>
                 </tbody>
             </table>
             <button class="add-button">Agregar Inventario</button>
+            <button class="delete-button">Quitar Inventario</button>
         </main>
     </div>
+
+    <div class="modal-overlay"></div>
+    <div class="modal" id="modal-agregar">
+        <h3>Agregar Producto</h3>
+        <input type="text" id="modal-producto" placeholder="Nombre del Producto">
+        <input type="number" id="modal-cantidad" placeholder="Cantidad">
+        <button class="confirm-button" id="confirm-add">Agregar</button>
+        <button class="cancel-button">Cancelar</button>
+    </div>
+
+    <div class="modal" id="modal-eliminar">
+        <h3>Quitar Producto</h3>
+        <select id="product-select">
+        </select>
+        <button class="confirm-button" id="confirm-delete">Eliminar</button>
+        <button class="cancel-button">Cancelar</button>
+    </div>
+
+    <script>
+        const addButton = document.querySelector(".add-button");
+        const deleteButton = document.querySelector(".delete-button");
+        const modalAgregar = document.getElementById("modal-agregar");
+        const modalEliminar = document.getElementById("modal-eliminar");
+        const overlay = document.querySelector(".modal-overlay");
+        const tbody = document.getElementById("inventario-body");
+
+        const closeModal = () => {
+            modalAgregar.style.display = "none";
+            modalEliminar.style.display = "none";
+            overlay.style.display = "none";
+        };
+
+        addButton.addEventListener("click", () => {
+            modalAgregar.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        deleteButton.addEventListener("click", () => {
+            const select = document.getElementById("product-select");
+            select.innerHTML = "";
+            tbody.querySelectorAll("tr").forEach(row => {
+                const producto = row.children[0].textContent;
+                const option = document.createElement("option");
+                option.value = producto;
+                option.textContent = producto;
+                select.appendChild(option);
+            });
+
+            modalEliminar.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        document.getElementById("confirm-add").addEventListener("click", () => {
+            const producto = document.getElementById("modal-producto").value;
+            const cantidad = document.getElementById("modal-cantidad").value;
+
+            if (producto && cantidad) {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${producto}</td>
+                    <td contenteditable="true">${cantidad}</td>
+                `;
+                tbody.appendChild(newRow);
+                closeModal();
+            } else {
+                alert("Por favor, completa todos los campos.");
+            }
+        });
+
+        document.getElementById("confirm-delete").addEventListener("click", () => {
+            const select = document.getElementById("product-select");
+            const productoSeleccionado = select.value;
+
+            if (productoSeleccionado) {
+                tbody.querySelectorAll("tr").forEach(row => {
+                    if (row.children[0].textContent === productoSeleccionado) {
+                        row.remove();
+                    }
+                });
+                closeModal();
+            }
+        });
+
+        modalAgregar.querySelector(".cancel-button").addEventListener("click", closeModal);
+        modalEliminar.querySelector(".cancel-button").addEventListener("click", closeModal);
+        overlay.addEventListener("click", closeModal);
+    </script>
 </body>
 </html>
