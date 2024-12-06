@@ -11,7 +11,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
 }
+
 .container {
     width: 90%;
     max-width: 900px;
@@ -20,10 +22,13 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin: 20px;
 }
+
 header {
     margin-bottom: 20px;
 }
+
 .menu {
     background-color: #9d98e6;
     padding: 10px;
@@ -38,11 +43,12 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 70px;
+    flex-wrap: wrap;
 }
 
 .menu ul li {
     display: inline;
+    margin: 5px;
 }
 
 .menu ul li a {
@@ -52,6 +58,8 @@ header {
     padding: 8px 16px;
     border-radius: 5px;
     transition: 0.3s;
+    display: block;
+    text-align: center;
 }
 
 .menu ul li a:hover {
@@ -60,10 +68,10 @@ header {
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
-    margin-left: 20px;
+    margin: 0 auto;
 }
 
 .active {
@@ -71,15 +79,16 @@ header {
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 2rem;
     color: #333;
+    margin-bottom: 20px;
 }
-
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    font-size: 1rem;
 }
 
 table th, table td {
@@ -93,7 +102,11 @@ table th {
     color: #ffffff;
 }
 
-.add-button {
+.add-button, .delete-button {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 10px auto;
     background-color: #5df15f;
     border: none;
     padding: 10px 20px;
@@ -102,26 +115,16 @@ table th {
     color: #333;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 100px;
 }
 
-.add-button:hover {
+.add-button:hover, .delete-button:hover {
     background-color: #FFC300;
 }
-.delete-button{
+
+.delete-button {
     background-color: #e41a1a;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 100px;
 }
-.delete-button:hover{
-    background-color: #FFC300;
-}
+
 .modal {
     display: none;
     position: fixed;
@@ -133,8 +136,10 @@ table th {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    width: 300px;
+    width: 90%;
+    max-width: 300px;
 }
+
 .modal-overlay {
     display: none;
     position: fixed;
@@ -145,52 +150,76 @@ table th {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
 .modal-header {
     font-size: 18px;
     margin-bottom: 10px;
 }
-.modal input {
-    width: 290px;
+
+.modal input, .modal select {
+    width: calc(100% - 16px);
     margin: 5px 0;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
+
 .modal button {
+    width: 48%;
     margin-top: 10px;
-    padding: 8px 12px;
+    padding: 8px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    box-sizing: border-box;
 }
+
 .modal .confirm-button {
     background-color: #4CAF50;
     color: white;
 }
+
 .modal .cancel-button {
     background-color: #f44336;
     color: white;
-    margin-left: 5px;
 }
-/* Estilos para mobile */
+
+/* Estilos responsive */
 @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      padding: 1rem;
+    .menu ul {
+        flex-direction: column;
+        align-items: center;
     }
-  
-    .navbar-logo {
-      max-width: 100px;
-      margin-bottom: 1rem;
+
+    table, th, td {
+        font-size: 0.9rem;
     }
-  
-    .navbar-links {
-      flex-direction: column;
-      align-items: center;
+
+    .logo {
+        width: 60px;
+        height: 60px;
     }
-  
-    .navbar-links li {
-      margin-left: 0;
-      margin-bottom: 0.5rem;
+
+    h1 {
+        font-size: 1.8rem;
     }
-  }
+}
+
+@media (max-width: 480px) {
+    .menu ul {
+        padding: 10px;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    .add-button, .delete-button {
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
