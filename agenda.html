@@ -115,7 +115,9 @@
             const descripcion = document.getElementById("modal-descripcion").value;
 
             if (fecha && ubicacion && descripcion) {
-                const formattedFecha = fecha.split("-").join("/");
+                const [year, month, day] = fecha.split("-");
+                const formattedFecha = `${day}/${month}/${year}`;
+
                 const newRow = document.createElement("tr");
                 newRow.innerHTML = `
                     <td>${formattedFecha}</td>
@@ -133,6 +135,7 @@
                 alert("Por favor, completa todos los campos.");
             }
         });
+
 
         confirmDeleteButton.addEventListener("click", () => {
             const selectedIndex = deleteOptions.value;
