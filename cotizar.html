@@ -43,6 +43,9 @@
                             <option value="Mudanza Internas">Mudanza Internas</option>
                         </select>
 
+                        <label for="colaboradores">Colaboradores Recomendados:</label>
+                        <div id="colaboradores-lista"></div>
+
                         <label for="ubiPartida">Punto de partida:</label>
                         <input type="text" id="ubiPartida">
 
@@ -67,6 +70,15 @@
                         
                         <label for="materialEmbalaje">Material de embalaje</label>
                         <input type="checkbox" id="materialEmbalaje">
+
+                        <label for="materialEmbalaje">Camión Pequeño</label>
+                        <input type="checkbox" id="camionPequeño">
+
+                        <label for="materialEmbalaje">Camión Grande</label>
+                        <input type="checkbox" id="camionGrange">
+
+                        <label for="materialEmbalaje">Camión de Plancha</label>
+                        <input type="checkbox" id="camionPlancha">
                     </div>
 
                     <input type="button" value="Guardar Cotización" onclick="guardarSolicitud()">
@@ -89,54 +101,117 @@
                 }
             });
         }
+            // Lista de colaboradores por tipo de trabajo
+    const colaboradoresPorTrabajo = {
+        "Acarreo": [
+            "Juan Pérez Conductor",
+            "Sebastian Rodriguez Ayudante general",
+            "Paul Jaen Ayudante general"
+        ],
+        "Wincheo": [
+            "Manuel Arauz Manejador de equipos",
+            "Sebastian Rodriguez Ayudante general",
+            "Camilo Ortega Conductor de Camión",
+            "Federico Jaen Manejador de equipos"
+        ],
+        "Mudanza Internas": [
+            "Sebastian Rodriguez Ayudante General",
+            "Juan Pérez Conductor",
+            "Andres Lomon Cargador"
+        ]
+    };
 
-        // Función para guardar y mostrar modal
-        function guardarSolicitud() {
-            const cliente = document.getElementById("nombreCliente").value;
-            const numero = document.getElementById("numeroCliente").value;
+            // Función para guardar y mostrar modal
+            function guardarSolicitud() {
+                const cliente = document.getElementById("nombreCliente").value;
+    const numero = document.getElementById("numeroCliente").value;
+    const tipoTrabajo = document.getElementById("tiposTrabajos").value;
+    const ubiPartida = document.getElementById("ubiPartida").value;
+    const ubiLlegada = document.getElementById("ubiLlegada").value;
+    const descripcion = document.getElementById("descripcion").value;
 
-            const checkboxes = ["montaCarga", "material", "polea", "materialEmbalaje"];
-            const serviciosSeleccionados = checkboxes
-                .filter(id => document.getElementById(id).checked)
-                .map(id => {
-                    const label = document.querySelector(`label[for="${id}"]`);
-                    return label ? label.textContent.trim() : "Desconocido";
-                });
+    // Calcular total de servicios
+    const { total: totalServicios, serviciosDetalle } = calcularTotalServicios();
 
-            const tipoTrabajo = document.getElementById("tiposTrabajos").value;
-            const ubiPartida = document.getElementById("ubiPartida").value;
-            const ubiLlegada = document.getElementById("ubiLlegada").value;
-            const descripcion = document.getElementById("descripcion").value;
+    // Obtener costo de mano de obra y costo adicional
+    const costoManoDeObra = costoManoObra[tipoTrabajo] || 0;
+    const costoAdicional = costoAdicionalTrabajo[tipoTrabajo] || 0;
 
-            mostrarModal({
-                cliente,
-                numero,
-                serviciosSeleccionados,
-                tipoTrabajo,
-                ubiPartida,
-                ubiLlegada,
-                descripcion
-            });
+    // Calcular suma final
+    const sumaFinal = totalServicios + costoManoDeObra + costoAdicional;
+
+    mostrarModal({
+        cliente,
+        numero,
+        serviciosDetalle,
+        tipoTrabajo,
+        ubiPartida,
+        ubiLlegada,
+        descripcion,
+        totalServicios,
+        costoManoDeObra,
+        costoAdicional,
+        sumaFinal
+    });
         }
+
+    // Mostrar colaboradores según el tipo de trabajo seleccionado
+    function mostrarColaboradores() {
+        const tipoTrabajo = document.getElementById("tiposTrabajos").value;
+        const colaboradoresLista = document.getElementById("colaboradores-lista");
+
+        // Obtener colaboradores correspondientes al tipo de trabajo
+        const colaboradores = colaboradoresPorTrabajo[tipoTrabajo] || [];
+
+        // Generar el contenido dinámico
+        colaboradoresLista.innerHTML = `
+            <ul>
+                ${colaboradores.map(nombre => `<li>${nombre}</li>`).join("")}
+            </ul>
+        `;
+    }
+
+    // Escuchar el cambio en el select de tipos de trabajo
+    const tiposTrabajos = document.getElementById("tiposTrabajos");
+    tiposTrabajos.addEventListener("change", mostrarColaboradores);
+
+    // Inicializar la lista de colaboradores al cargar la página
+    mostrarColaboradores();
 
         // Mostrar modal
         function mostrarModal(datos) {
-            const modalContent = `
-                <div id="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
-                    <div style="background: white; padding: 20px; border-radius: 8px; max-width: 600px; width: 90%;">
-                        <h2>Información de la Cotización</h2>
-                        <p><strong>Cliente:</strong> ${datos.cliente}</p>
-                        <p><strong>Número de Contacto:</strong> ${datos.numero}</p>
-                        <p><strong>Servicios Seleccionados:</strong> ${datos.serviciosSeleccionados.join(", ") || "Ninguno"}</p>
-                        <p><strong>Tipo de Trabajo:</strong> ${datos.tipoTrabajo}</p>
-                        <p><strong>Punto de Partida:</strong> ${datos.ubiPartida}</p>
-                        <p><strong>Punto de Llegada:</strong> ${datos.ubiLlegada}</p>
-                         <p><strong>Descripción del Servicio:</strong> ${datos.descripcion}</p>
-                        <button onclick="cerrarModal()">Cerrar</button>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML("beforeend", modalContent);
+                                    // Generar lista de servicios detallada
+    const serviciosHTML = datos.serviciosDetalle.map(servicio => 
+        `<li>${servicio.nombre}: $${servicio.valor}</li>`
+    ).join('');
+
+    const modalContent = `
+        <div id="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+            <div style="background: white; padding: 20px; border-radius: 8px; max-width: 600px; width: 90%;">
+                <h2>Información de la Cotización</h2>
+                <p><strong>Cliente:</strong> ${datos.cliente}</p>
+                <p><strong>Número de Contacto:</strong> ${datos.numero}</p>
+                
+                <h3>Estimado de Costos</h3>
+                <h4>Servicios Seleccionados:</h4>
+                <ul>${serviciosHTML}</ul>
+                <p><strong>Total de Servicios:</strong> $${datos.totalServicios}</p>
+                
+                <p><strong>Tipo de Trabajo:</strong> ${datos.tipoTrabajo}</p>
+                <p><strong>Costo de Mano de Obra:</strong> $${datos.costoManoDeObra}</p>
+                <p><strong>Costo Adicional de Trabajo:</strong> $${datos.costoAdicional}</p>
+                
+                <p><strong>Suma Final:</strong> $${datos.sumaFinal}</p>
+                
+                <p><strong>Punto de Partida:</strong> ${datos.ubiPartida}</p>
+                <p><strong>Punto de Llegada:</strong> ${datos.ubiLlegada}</p>
+                <p><strong>Descripción del Servicio:</strong> ${datos.descripcion}</p>
+                
+                <button onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML("beforeend", modalContent);
         }
 
         // Cerrar modal
@@ -144,6 +219,57 @@
             const modal = document.getElementById("modal");
             if (modal) modal.remove();
         }
+
+
+
+                                                // Definición de valores para checkboxes
+const servicioValores = {
+    "montaCarga": 100,
+    "material": 30,
+    "materialEmbalaje": 25,
+    "camionPequeño": 90,
+    "camionGrande": 150,
+    "camionPlancha": 200
+};
+
+// Definición de costos de mano de obra por tipo de trabajo
+const costoManoObra = {
+    "Acarreo": 100,
+    "Wincheo": 160,
+    "Mudanza Internas": 130
+};
+
+// Definición de costos adicionales por tipo de trabajo
+const costoAdicionalTrabajo = {
+    "Acarreo": 200,
+    "Wincheo": 1000,
+    "Mudanza Internas": 500
+};
+
+// Función para calcular el total de servicios seleccionados
+function calcularTotalServicios() {
+    let total = 0;
+    const serviciosDetalle = [];
+
+    Object.keys(servicioValores).forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox && checkbox.checked) {
+            const valor = servicioValores[id];
+            total += valor;
+            const label = document.querySelector(`label[for="${id}"]`);
+            serviciosDetalle.push({
+                nombre: label ? label.textContent.trim() : id,
+                valor: valor
+            });
+        }
+    });
+
+    return { total, serviciosDetalle };
+}
+
+
+
+
     </script>
 </body>
 </html>
