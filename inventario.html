@@ -21,36 +21,39 @@
             </nav>
         </header>
         <main>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody id="inventario-body">
-                    <tr>
-                        <td>Camión de Carga</td>
-                        <td contenteditable="true">3</td>
-                    </tr>
-                    <tr>
-                        <td>Grúa Hidráulica</td>
-                        <td contenteditable="true">2</td>
-                    </tr>
-                    <tr>
-                        <td>Carretillas</td>
-                        <td contenteditable="true">10</td>
-                    </tr>
-                    <tr>
-                        <td>Transpaletas</td>
-                        <td contenteditable="true">5</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventario-body">
+                        <tr>
+                            <td>Camión de Carga</td>
+                            <td contenteditable="true">3</td>
+                        </tr>
+                        <tr>
+                            <td>Grúa Hidráulica</td>
+                            <td contenteditable="true">2</td>
+                        </tr>
+                        <tr>
+                            <td>Carretillas</td>
+                            <td contenteditable="true">10</td>
+                        </tr>
+                        <tr>
+                            <td>Transpaletas</td>
+                            <td contenteditable="true">5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <button class="add-button">Agregar Inventario</button>
             <button class="delete-button">Quitar Inventario</button>
         </main>
     </div>
+    
 
     <div class="modal-overlay"></div>
     <div class="modal" id="modal-agregar">
