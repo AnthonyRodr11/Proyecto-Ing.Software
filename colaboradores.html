@@ -31,8 +31,7 @@
                         <th>Pago Estimado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Fila 1 -->
+                <tbody id="colaboradores-body">
                     <tr>
                         <td>Juan Pérez</td>
                         <td>123456789</td>
@@ -40,7 +39,6 @@
                         <td>Conductor de camión</td>
                         <td>$2000</td>
                     </tr>
-                    <!-- Fila 2 -->
                     <tr>
                         <td>Ana Gómez</td>
                         <td>987654321</td>
@@ -48,7 +46,6 @@
                         <td>Operador de grúa</td>
                         <td>$2500</td>
                     </tr>
-                    <!-- Fila 3 -->
                     <tr>
                         <td>Carlos Rodríguez</td>
                         <td>456789123</td>
@@ -59,7 +56,104 @@
                 </tbody>
             </table>
             <button class="add-button">Agregar Colaborador</button>
+            <button class="delete-button">Quitar Colaborador</button>
         </main>
     </div>
+
+    <div class="modal-overlay"></div>
+    <div class="modal" id="modal-agregar">
+        <h3>Agregar Colaborador</h3>
+        <input type="text" id="modal-nombre" placeholder="Nombre">
+        <input type="text" id="modal-id" placeholder="Identificación">
+        <input type="email" id="modal-contacto" placeholder="Contacto">
+        <input type="text" id="modal-especialidad" placeholder="Especialidad">
+        <input type="text" id="modal-pago" placeholder="Pago Estimado">
+        <button class="confirm-button" id="confirm-add">Agregar</button>
+        <button class="cancel-button">Cancelar</button>
+    </div>
+
+    <div class="modal" id="modal-eliminar">
+        <h3>Quitar Colaborador</h3>
+        <select id="colaborador-select">
+        </select>
+        <button class="confirm-button" id="confirm-delete">Eliminar</button>
+        <button class="cancel-button">Cancelar</button>
+    </div>
+
+    <script>
+        const addButton = document.querySelector(".add-button");
+        const deleteButton = document.querySelector(".delete-button");
+        const modalAgregar = document.getElementById("modal-agregar");
+        const modalEliminar = document.getElementById("modal-eliminar");
+        const overlay = document.querySelector(".modal-overlay");
+        const tbody = document.getElementById("colaboradores-body");
+
+        const closeModal = () => {
+            modalAgregar.style.display = "none";
+            modalEliminar.style.display = "none";
+            overlay.style.display = "none";
+        };
+
+        addButton.addEventListener("click", () => {
+            modalAgregar.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        deleteButton.addEventListener("click", () => {
+            const select = document.getElementById("colaborador-select");
+            select.innerHTML = "";
+            tbody.querySelectorAll("tr").forEach(row => {
+                const nombre = row.children[0].textContent;
+                const option = document.createElement("option");
+                option.value = nombre;
+                option.textContent = nombre;
+                select.appendChild(option);
+            });
+
+            modalEliminar.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        document.getElementById("confirm-add").addEventListener("click", () => {
+            const nombre = document.getElementById("modal-nombre").value;
+            const id = document.getElementById("modal-id").value;
+            const contacto = document.getElementById("modal-contacto").value;
+            const especialidad = document.getElementById("modal-especialidad").value;
+            const pago = document.getElementById("modal-pago").value;
+
+            if (nombre && id && contacto && especialidad && pago) {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${nombre}</td>
+                    <td>${id}</td>
+                    <td>${contacto}</td>
+                    <td>${especialidad}</td>
+                    <td>${pago}</td>
+                `;
+                tbody.appendChild(newRow);
+                closeModal();
+            } else {
+                alert("Por favor, completa todos los campos.");
+            }
+        });
+
+        document.getElementById("confirm-delete").addEventListener("click", () => {
+            const select = document.getElementById("colaborador-select");
+            const colaboradorSeleccionado = select.value;
+
+            if (colaboradorSeleccionado) {
+                tbody.querySelectorAll("tr").forEach(row => {
+                    if (row.children[0].textContent === colaboradorSeleccionado) {
+                        row.remove();
+                    }
+                });
+                closeModal();
+            }
+        });
+
+        modalAgregar.querySelector(".cancel-button").addEventListener("click", closeModal);
+        modalEliminar.querySelector(".cancel-button").addEventListener("click", closeModal);
+        overlay.addEventListener("click", closeModal);
+    </script>
 </body>
 </html>
