@@ -26,10 +26,6 @@ body {
     box-sizing: border-box;
 }
 
-header {
-    margin-bottom: 20px;
-}
-
 .menu {
     background-color: #9d98e6;
     padding: 10px;
@@ -42,13 +38,15 @@ header {
     padding: 0;
     margin: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    height: 70px;
+    gap: 10px;
 }
 
 .menu ul li {
-    display: inline;
+    flex: 1 1 auto;
+    text-align: center;
 }
 
 .menu ul li a {
@@ -58,25 +56,16 @@ header {
     padding: 8px 16px;
     border-radius: 5px;
     transition: 0.3s;
-}
-
-.menu ul li a:hover {
-    background-color: #FFD700;
-    color: black;
+    display: block;
 }
 
 .logo {
     width: 100px;
     height: 100px;
     object-fit: contain;
-    margin-left: 20px;
+    margin: 0 auto;
 }
 
-.active {
-    background-color: #5df15f;
-}
-
-/* Acordeón */
 .accordion {
     background-color: #9d98e6;
     color: white;
@@ -92,24 +81,18 @@ header {
     transition: 0.3s;
 }
 
-.accordion.active,
-.accordion:hover {
-    background-color: #5df15f;
-}
-
 .panel {
     padding: 10px;
     display: none;
     background-color: #f1f1f1;
     overflow-y: auto;
-    max-height: 200px;
+    max-height: 300px;
     border-radius: 5px;
     margin-bottom: 15px;
 }
 
 form {
     text-align: left;
-    display: block;
     width: 100%;
 }
 
@@ -122,17 +105,13 @@ form label {
 form input[type="text"],
 form textarea,
 form select {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
     box-sizing: border-box;
-}
-
-form textarea {
-    resize: none;
 }
 
 input[type="button"] {
@@ -145,55 +124,66 @@ input[type="button"] {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
-}
-
-input[type="button"]:hover {
-    background-color: #FFC300;
-}
-/* Estilo para el fondo del modal */
-.modal {
-    display: none; /* Oculto por defecto */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Fondo translúcido */
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
 }
 
-/* Contenido del modal */
-.modal-content {
-    background-color: white;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    max-width: 500px;
-    width: 90%;
+/* Media Queries para responsividad */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .menu ul li {
+        width: 100%;
+    }
+
+    .menu ul li a {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .accordion {
+        font-size: 14px;
+        padding: 15px;
+    }
+
+    .panel {
+        max-height: 250px;
+    }
 }
 
-/* Botón de cerrar */
-.close-btn {
-    color: white;
-    background-color: #9d98e6;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 5px 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    float: right;
-    transition: 0.3s;
-    border: none;
-}
+@media screen and (max-width: 480px) {
+    .container {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
 
-/* Hover en el botón de cerrar */
-.close-btn:hover {
-    background-color: #FFD700;
-    color: black;
+    .logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .accordion {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    form input[type="text"],
+    form textarea,
+    form select {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
 }
